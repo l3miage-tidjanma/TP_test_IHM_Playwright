@@ -1,4 +1,28 @@
 /**
+ * Vérifie que les tâches affichées correspondent à la liste attendue.
+ * @param todoList La liste des tâches affichées.
+ * @param labels Les labels attendus.
+ */
+export function verifierAffichageTaches(todoList: TodoListData, labels: string[]) {
+	const affiches = todoList.map(item => item.label);
+	expect(affiches.sort()).toEqual(labels.sort());
+}
+
+/**
+ * Vérifie le compteur de tâches restantes affiché sur la page.
+ * @param page La page Playwright.
+ * @param attendu Le nombre attendu de tâches restantes.
+ */
+export async function verifierCompteurRestantes(page: import('@playwright/test').Page, attendu: number) {
+	// Le compteur est souvent dans un élément <strong> suivi du texte "restantes"
+	const compteurNode = await page.locator('strong, .todo-count').first();
+	const compteurText = await compteurNode.textContent();
+	// Utilise une regex pour extraire le nombre
+	const match = compteurText && compteurText.match(/\d+/);
+	const value = match ? Number(match[0]) : NaN;
+	expect(value).toBe(attendu);
+}
+/**
  * Vérifie qu'une tâche a bien été modifiée (ancien label supprimé, nouveau label présent).
  * @param todoList La liste des tâches.
  * @param ancienLabel L'ancien label.

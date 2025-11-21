@@ -1,4 +1,13 @@
 /**
+ * Applique un filtre sur la todo-list via l'UI.
+ * @param page La page Playwright.
+ * @param filtre Le filtre à appliquer ('Tous', 'Actifs', 'Complétées').
+ */
+export async function appliquerFiltre(page: Page, filtre: string): Promise<void> {
+	// Clique sur le bouton ou l'onglet correspondant au filtre
+	await page.click(`text=${filtre}`);
+}
+/**
  * Modifie une tâche de la todo-list via l'UI.
  * @param page La page Playwright.
  * @param ancienLabel Le label de la tâche à modifier.
