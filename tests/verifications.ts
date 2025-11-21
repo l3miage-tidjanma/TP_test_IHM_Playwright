@@ -1,4 +1,22 @@
 /**
+ * Vérifie qu'une tâche a bien été modifiée (ancien label supprimé, nouveau label présent).
+ * @param todoList La liste des tâches.
+ * @param ancienLabel L'ancien label.
+ * @param nouveauLabel Le nouveau label.
+ */
+export function verifierTacheModifiee(todoList: TodoListData, ancienLabel: string, nouveauLabel: string) {
+	expect(todoList.some(item => item.label === ancienLabel)).toBe(false);
+	expect(todoList.some(item => item.label === nouveauLabel)).toBe(true);
+}
+/**
+ * Vérifie qu'une tâche a bien été supprimée de la todo-list.
+ * @param todoList La liste des tâches.
+ * @param label Le label de la tâche à vérifier.
+ */
+export function verifierTacheSupprimee(todoList: TodoListData, label: string) {
+	expect(todoList.some(item => item.label === label)).toBe(false);
+}
+/**
  * Vérifie que toutes les tâches ayant un label donné sont identiques (label, état done).
  * @param todoList La liste des tâches.
  * @param label Le label à vérifier.

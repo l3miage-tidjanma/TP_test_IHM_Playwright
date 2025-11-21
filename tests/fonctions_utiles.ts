@@ -1,4 +1,49 @@
 /**
+ * Modifie une tâche de la todo-list via l'UI.
+ * @param page La page Playwright.
+ * @param ancienLabel Le label de la tâche à modifier.
+ * @param nouveauLabel Le nouveau label à appliquer.
+ */
+export async function modifierTache(page: Page, ancienLabel: string, nouveauLabel: string): Promise<void> {
+	// Trouve l'élément de la tâche par son texte
+	const item = page.locator('.todo-list li', { hasText: ancienLabel });
+	if (await item.count() === 0) {
+		// La tâche n'existe pas, on ne fait rien
+		return;
+	}
+	// Double-clique sur le label pour activer l'édition
+	const labelNode = item.locator('.todo-label, label, span');
+	await labelNode.dblclick();
+	// Cible le champ d'édition (input ou textbox qui apparaît)
+	const editInput = item.locator('input[type="text"], input.edit, .edit, [contenteditable="true"]');
+	await editInput.fill(nouveauLabel);
+	// Valide la modification (Enter)
+	await editInput.press('Enter');
+}
+/**
+ * Supprime une tâche de la todo-list via l'UI.
+ * @param page La page Playwright.
+ * @param label Le label de la tâche à supprimer.
+ */
+export async function supprimerTache(page: Page, label: string): Promise<void> {
+	// Trouve l'élément de la tâche par son texte
+	const item = page.locator('.todo-list li', { hasText: label });
+	if (await item.count() === 0) {
+		// La tâche n'existe pas, on ne fait rien
+		return;
+	}
+	// Simule le survol pour rendre le bouton visible
+	await item.hover();
+	// Cible le bouton de suppression (souvent .destroy ou texte ×)
+	const btn = item.locator('button.destroy, button:has-text("×"), button:has-text("X")');
+	if (await btn.count() > 0) {
+		await btn.first().click();
+	} else {
+		// Fallback : clique sur le dernier bouton de l'item (souvent le bouton de suppression)
+		await item.locator('button').last().click();
+	}
+}
+/**
  * Compte le nombre de tâches ayant un label donné dans la todo-list.
  * @param todoList La liste des tâches.
  * @param label Le label à rechercher.
