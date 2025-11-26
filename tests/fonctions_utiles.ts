@@ -1,4 +1,21 @@
 /**
+ * Coche une tâche dans la todo-list via l'UI.
+ * @param page La page Playwright.
+ * @param label Le label de la tâche à cocher.
+ */
+export async function cocherTache(page: Page, label: string): Promise<void> {
+	const item = page.locator('.todo-list li', { hasText: label });
+	await item.locator('input[type="checkbox"]').check();
+}
+
+/**
+ * Supprime toutes les tâches cochées via le bouton "Supprimer cochées".
+ * @param page La page Playwright.
+ */
+export async function supprimerTachesCochees(page: Page): Promise<void> {
+	await page.click('button:has-text("Supprimer cochées")');
+}
+/**
  * Applique un filtre sur la todo-list via l'UI.
  * @param page La page Playwright.
  * @param filtre Le filtre à appliquer ('Tous', 'Actifs', 'Complétées').

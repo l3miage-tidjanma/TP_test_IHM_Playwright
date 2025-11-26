@@ -49,15 +49,16 @@ test.describe('supprimer une tâche de la todo-list', () => {
 		expect(todoList.length).toBe(0);
 	});
 
-	test('supprimer une tâche qui n\'existe pas ne modifie pas la liste', async ({ page }) => {
-		await page.goto('https://alexdmr.github.io/l3m-2023-2024-angular-todolist');
-		const labels = ['x', 'y'];
-		for (const label of labels) {
-			await ajouterTache(page, label);
-		}
-		await supprimerTache(page, 'z');
-		const todoList = await recupererTodoList(page);
-		verifierTachesDifferentes(todoList, labels);
-		verifierNombreTachesAvecLabel(todoList, 'z', 0);
-	});
+	// Test inutile ! on ne peut pas supprimer une tâche que l'on a pas ajouté préalablement
+	// test('supprimer une tâche qui n\'existe pas ne modifie pas la liste', async ({ page }) => {
+	// 	await page.goto('https://alexdmr.github.io/l3m-2023-2024-angular-todolist');
+	// 	const labels = ['x', 'y'];
+	// 	for (const label of labels) {
+	// 		await ajouterTache(page, label);
+	// 	}
+	// 	await supprimerTache(page, 'z');
+	// 	const todoList = await recupererTodoList(page);
+	// 	verifierTachesDifferentes(todoList, labels);
+	// 	verifierNombreTachesAvecLabel(todoList, 'z', 0);
+	// });
 });
