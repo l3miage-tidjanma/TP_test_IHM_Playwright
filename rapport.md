@@ -1,5 +1,8 @@
 # Rapport de Tests Playwright - Todo-List
 
+Imene BOUNABEL
+Manyl TIDJANI
+
 ## 1. Introduction
 
 Ce rapport présente l'ensemble des scénarios de test implémentés avec Playwright pour valider les fonctionnalités d'une application de gestion de tâches (todo-list). Les tests couvrent toutes les opérations principales : ajout, modification, suppression, filtrage et suppression batch de tâches.
@@ -422,8 +425,22 @@ Les fonctions utilisent `.first()` pour cibler la première occurrence lors de l
 - Modification de tâches inexistantes
 - Filtrage avec compteur dynamique
 
-## 6. Prompts
+## 6. Prompts et IA
 Après chaque prompt, je vérifiais et corrigeais le résultat derrière si nécessaire. Au début, je n'avais pas de structure claire pour mes tests. J'ai donc commencé par des tests unitaires pour tester la manière de les implémenter,en séparant les fonctions utilitaires des fonctions de vérification pour rendre les scénarios de test plus lisibles. Ensuite, j'ai établi un scénario complet qui enchaîne toutes les fonctionnalités.
+
+Ensuite, lorsqu'un test échouait, je pouvais fournir du contexte sur l'erreur en insérant l'image suivante :
+
+![Contexte d'erreur (IA)](./context_ia.png)
+
+Si vous souhaitez contrôler la taille ou centrer l'image, utilisez du HTML :
+
+<p align="center">
+  <img src="./context_ia.png" alt="Contexte d'erreur (IA)" width="700" />
+</p>
+
+*Figure : capture context_ia.png montrant le contexte de l'erreur.*
+
+Remarque : placez context_ia.png dans le même dossier que rapport.md (ou ajustez le chemin : ./images/context_ia.png, /assets/context_ia.png, etc.) avant d'afficher l'image.
 
 ### 6.1 premier test + contexte
 Je souhaite réaliser une série de tests avec Playwright. 
