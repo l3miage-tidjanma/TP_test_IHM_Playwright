@@ -4,7 +4,7 @@
  * @param label Le label de la tâche à cocher.
  */
 export async function cocherTache(page: Page, label: string): Promise<void> {
-	const item = page.locator('.todo-list li', { hasText: label });
+	const item = page.locator('.todo-list li', { hasText: label }).first();
 	await item.locator('input[type="checkbox"]').check();
 }
 
@@ -52,8 +52,8 @@ export async function modifierTache(page: Page, ancienLabel: string, nouveauLabe
  * @param label Le label de la tâche à supprimer.
  */
 export async function supprimerTache(page: Page, label: string): Promise<void> {
-	// Trouve l'élément de la tâche par son texte
-	const item = page.locator('.todo-list li', { hasText: label });
+	// Trouve la première occurrence de la tâche par son texte
+	const item = page.locator('.todo-list li', { hasText: label }).first();
 	if (await item.count() === 0) {
 		// La tâche n'existe pas, on ne fait rien
 		return;
